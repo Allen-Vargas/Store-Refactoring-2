@@ -25,6 +25,13 @@ public class OrderItem {
 		float totalItem = 0;
 		float itemAmount = calculateTotalAmount();
 		float discount = 0;
+		DiscountCalculator discountCalculator = createDiscountCalculator();
+		discount = discountCalculator.calculateDiscount(this);
+		totalItem = itemAmount - discount;
+		return totalItem;
+	}
+
+	private DiscountCalculator createDiscountCalculator() {
 		DiscountCalculator discountCalculator = null;
 		if (getProduct().getCategory() == ProductCategory.Accessories) {
 			discountCalculator = new AccessoriesDiscount();
@@ -35,9 +42,7 @@ public class OrderItem {
 		if (getProduct().getCategory() == ProductCategory.Cloathing) {
 			discountCalculator = new CloathingDiscount();
 		}
-		discount = discountCalculator.calculateDiscount(this);
-		totalItem = itemAmount - discount;
-		return totalItem;
+		return discountCalculator;
 	}
 
 	public float calculateTotalAmount() {
