@@ -28,16 +28,14 @@ public class OrderItem {
 		DiscountCalculator discountCalculator = null;
 		if (getProduct().getCategory() == ProductCategory.Accessories) {
 			discountCalculator = new AccessoriesDiscount();
-			discount = discountCalculator.calculateDiscount(this);
 		}
 		if (getProduct().getCategory() == ProductCategory.Bikes) {
 			discountCalculator = new BikesDiscount();
-			discount = discountCalculator.calculateDiscount(this);
 		}
 		if (getProduct().getCategory() == ProductCategory.Cloathing) {
 			discountCalculator = new CloathingDiscount();
-			discount = discountCalculator.calculateDiscount(this);
 		}
+		discount = discountCalculator.calculateDiscount(this);
 		totalItem = itemAmount - discount;
 		return totalItem;
 	}
