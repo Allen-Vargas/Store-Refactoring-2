@@ -25,12 +25,10 @@ public class OrderItem {
 		float totalItem = 0;
 		float itemAmount = calculateTotalAmount();
 		float discount = 0;
+		DiscountCalculator discountCalculator = null;
 		if (getProduct().getCategory() == ProductCategory.Accessories) {
-			float booksDiscount = 0;
-			if (itemAmount >= 100) {
-				booksDiscount = itemAmount * 10 / 100;
-			}
-			discount = booksDiscount;
+			discountCalculator = new AccessoriesDiscount();
+			discount = discountCalculator.calculateDiscount(this);
 		}
 		if (getProduct().getCategory() == ProductCategory.Bikes) {
 			// 20% discount for Bikes
@@ -47,7 +45,7 @@ public class OrderItem {
 		return totalItem;
 	}
 
-	private float calculateTotalAmount() {
+	public float calculateTotalAmount() {
 		return getProduct().getUnitPrice() * getQuantity();
 	}
 }
