@@ -23,7 +23,7 @@ public class OrderItem {
 
 	float calculateTotalFor() {
 		float totalItem = 0;
-		float itemAmount = getProduct().getUnitPrice() * getQuantity();
+		float itemAmount = calculateTotalAmount();
 		if (getProduct().getCategory() == ProductCategory.Accessories) {
 			float booksDiscount = 0;
 			if (itemAmount >= 100) {
@@ -43,5 +43,9 @@ public class OrderItem {
 			totalItem = itemAmount - cloathingDiscount;
 		}
 		return totalItem;
+	}
+
+	private float calculateTotalAmount() {
+		return getProduct().getUnitPrice() * getQuantity();
 	}
 }
