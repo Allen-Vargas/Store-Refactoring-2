@@ -35,11 +35,8 @@ public class OrderItem {
 			discount = discountCalculator.calculateDiscount(this);
 		}
 		if (getProduct().getCategory() == ProductCategory.Cloathing) {
-			float cloathingDiscount = 0;
-			if (getQuantity() > 2) {
-				cloathingDiscount = getProduct().getUnitPrice();
-			}
-			discount = cloathingDiscount;
+			discountCalculator = new CloathingDiscount();
+			discount = discountCalculator.calculateDiscount(this);
 		}
 		totalItem = itemAmount - discount;
 		return totalItem;
