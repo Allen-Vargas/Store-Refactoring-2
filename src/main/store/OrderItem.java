@@ -24,24 +24,26 @@ public class OrderItem {
 	float calculateTotalFor() {
 		float totalItem = 0;
 		float itemAmount = calculateTotalAmount();
+		float discount = 0;
 		if (getProduct().getCategory() == ProductCategory.Accessories) {
 			float booksDiscount = 0;
 			if (itemAmount >= 100) {
 				booksDiscount = itemAmount * 10 / 100;
 			}
-			totalItem = itemAmount - booksDiscount;
+			discount = booksDiscount;
 		}
 		if (getProduct().getCategory() == ProductCategory.Bikes) {
 			// 20% discount for Bikes
-			totalItem = itemAmount - itemAmount * 20 / 100;
+			discount = itemAmount * 20 / 100;
 		}
 		if (getProduct().getCategory() == ProductCategory.Cloathing) {
 			float cloathingDiscount = 0;
 			if (getQuantity() > 2) {
 				cloathingDiscount = getProduct().getUnitPrice();
 			}
-			totalItem = itemAmount - cloathingDiscount;
+			discount = cloathingDiscount;
 		}
+		totalItem = itemAmount - discount;
 		return totalItem;
 	}
 
