@@ -53,19 +53,24 @@ public class Order {
 	}
 
 	public float total() {
-		float totalItems = 0;
-		totalItems = calculateTotalForItem(totalItems);
-
+		float totalItems = calculateTotalForItem();
+		float tax = calculateTax(totalItems);
+		
 		if (this.deliveryCountry == "USA"){
 			// total=totalItems + tax + 0 shipping
-			return totalItems + totalItems * 5 / 100;
+			return totalItems + tax;
 		}
 
 		// total=totalItemst + tax + 15 shipping
-		return totalItems + totalItems * 5 / 100 + 15;
+		return totalItems + tax + 15;
 	}
 
-	private float calculateTotalForItem(float totalItems) {
+	private float calculateTax(float totalItems) {
+		return totalItems * 5 / 100;
+	}
+
+	private float calculateTotalForItem() {
+		float totalItems = 0;
 		for (OrderItem item : items) {
 			float totalItem=0;
 			float itemAmount = item.getProduct().getUnitPrice() * item.getQuantity();
