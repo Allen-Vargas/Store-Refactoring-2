@@ -31,8 +31,8 @@ public class OrderItem {
 			discount = discountCalculator.calculateDiscount(this);
 		}
 		if (getProduct().getCategory() == ProductCategory.Bikes) {
-			// 20% discount for Bikes
-			discount = itemAmount * 20 / 100;
+			discountCalculator = new BikesDiscount();
+			discount = discountCalculator.calculateDiscount(this);
 		}
 		if (getProduct().getCategory() == ProductCategory.Cloathing) {
 			float cloathingDiscount = 0;
